@@ -123,7 +123,7 @@ export default function Sidebar({showSideBar, setShowSideBar}) {
                       catalogueLinks.map((item, i)=>{
                         const Icon = item.icon
                         return(
-                              <Link
+                              <Link key={i}
                                   onClick={()=>setShowSideBar(false)} 
                                   href={item.href} 
                                   className={

@@ -36,7 +36,7 @@ export default function LoginForm() {
         toast.success("User created successfully")
         reset();
         // const userRole = responseData.data.role
-        if(role=='User'){
+        if(role=="User"){
           router.push("/")
         } else{
           router.push(`/onboarding/${responseData.data.id}`)
@@ -62,8 +62,8 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="">
       <TextInput
-        label='Email Address'
-        name='email'
+        label="Email Address"
+        name="email"
         register={register}
         errors={errors}
         type="email"
@@ -71,18 +71,18 @@ export default function LoginForm() {
       />
       {emailErr && <small className="text-red-600 -mt-2 mb-2">{emailErr}</small>}
       <TextInput
-        label='Password'
-        name='password'
+        label="Password"
+        name="password"
         register={register}
         errors={errors}
         type="password"
       />
       <SubmitButton isLoading={loading}
-        buttonTitle='Login'
-        loadingButtonTitle='Signing you in Please wait...'
+        buttonTitle="Login"
+        loadingButtonTitle="Signing you in Please wait..."
       />
       <p className="py-4 text-sm font-light text-gray-500 dark:text-gray-400">
-        Don't have an account?{" "}
+        Do not have an account?{" "}
         <Link
           href="/register"
           className="font-medium text-purple-600 hover:underline dark:text-purple-500"

@@ -39,7 +39,9 @@ export default function SmallCards() {
         {
             orderStatus.map((data, i)=>{
                 return(
-                    <SmallCard data={data} />
+                    <div key={i} className="me-2">
+                        <SmallCard data={data} />
+                    </div>
                 )
             })
         }
