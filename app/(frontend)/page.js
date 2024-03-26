@@ -12,7 +12,7 @@ export default async function Home() {
        <Hero/>
        <MarketList/>
         {
-          categories.map((category, i)=>{
+          categories?.map((category, i)=>{
             return(
               <div key={i} className="py-3">
                 <CategoryList category={category}/>
