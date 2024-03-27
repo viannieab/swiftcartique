@@ -43,11 +43,11 @@ export default function CategoryCarousel({products}) {
       itemClass="px-3"
     >
       {
-        products.map((product, i)=>{
+        products?.map((product, i)=>{
           return(
             <div key={i}
              href="#" className='rounded-lg bg-white dark:bg-slate-900 shadow overflow-hidden'>
-              <Link href='#'>
+              <Link href={`/products/${product.slug}`}>
                 <Image 
                   src={product.imageUrl}
                   alt={product.title} 
@@ -56,7 +56,7 @@ export default function CategoryCarousel({products}) {
                 />              
               </Link>
               <div className="px-4">
-                <Link href='#'>
+                <Link href={`/products/${product.slug}`}>
                 <h2 className='text-center text-slate-900 dark:text-slate-200 mt-2 font-semibold'>{product.title}</h2>
                 </Link>
                 <div className="flex items-center justify-between gap-2 pb-3 my-2 dark:text-slate-200">

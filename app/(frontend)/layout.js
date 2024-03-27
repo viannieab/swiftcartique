@@ -8,8 +8,8 @@ export default function Layout({children}) {
         <Navbar/>
         <div className='max-w-6xl mx-auto py-6 px-8 lg:px-0'>
           {children}
-          <Footer/>
         </div>
+        <Footer/>
     </div>
   )
 }
