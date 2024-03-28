@@ -4,8 +4,8 @@ import DataTable from '@/components/data-table-components/DataTable'
 import { getData } from '@/lib/getData'
 import { columns } from './columns'
 
-export default function Products() {
-  const products = getData("products")
+export default async function Products() {
+  const products = await getData("products")
   return (
     <div>
       {/* header */}

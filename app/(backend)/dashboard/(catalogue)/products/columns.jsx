@@ -1,20 +1,18 @@
 "use client"
 
-import Image from "next/image"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
-import ActionColumn from "@/components/DataTableColumns/ActionColumn"
 import DateColumn from "@/components/DataTableColumns/DateColumn"
+import ImageColumn from "@/components/DataTableColumns/ImageColumn"
 import SortableColumn from "@/components/DataTableColumns/SortableColumn"
+import ActionColumn from "@/components/DataTableColumns/ActionColumn"
+
+const truncateSentence = (sentence, maxLength) => {
+  if (sentence.length <= maxLength) {
+    return sentence;
+  } else {
+    return sentence.slice(0, maxLength) + '...';
+  }
+};
 
 export const columns = [
   {
@@ -44,21 +42,24 @@ export const columns = [
     header: ({ column }) => (<SortableColumn column={column} title="Title"/>),
   },
   {
-    accessorKey: "couponCode",
-    header: "Coupon Code",
+    accessorKey: "imageUrl",
+    header: "Product Image",
+    cell: ({ row }) => (<ImageColumn row={row} accessorKey="imageUrl"/>),
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
     cell: ({row}) =>{
-      const couponCode = row.getValue("couponCode")
-      return(
-        <div className="">
-          {couponCode}
+      const description = row.getValue("description")
+      const maxLength = 50
+      const truncatedDescription = truncateSentence(description, maxLength);
+
+      return (
+        <div className="line-clamp-1">
+          {truncatedDescription}
         </div>
       )
     }
-  },
-  {
-    accessorKey: "expiryDate",
-    header: "Expiry Date",
-    cell: ({row}) => (<DateColumn row={row} accessorKey="expiryDate"/>)
   },
   {
     accessorKey: "isActive",
@@ -71,6 +72,6 @@ export const columns = [
   },
   {
     id: "actions",
-    cell: ({ row }) => (<ActionColumn row={row} title="Coupon"/>),
+    cell: ({ row }) => (<ActionColumn row={row} title="Product"/>),
   },
 ] 

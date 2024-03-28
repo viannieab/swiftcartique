@@ -63,7 +63,7 @@ export const columns = [
   },
   {
     accessorKey: "isActive",
-    header: "IsActive",
+    header: "Active",
   },
   {
     accessorKey: "createdAt",

@@ -13,7 +13,7 @@ export async function POST(request){
                 contactPersonPhone: farmerData.contactPersonPhone,
                 profileImageUrl: farmerData.profileImageUrl,
                 email: farmerData.email,
-                name: farmerData.name,
+                title: farmerData.title,
                 notes: farmerData.notes,
                 phone: farmerData.phone,
                 physicalAddress: farmerData.physicalAddress,
