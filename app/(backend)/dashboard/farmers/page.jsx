@@ -11,7 +11,7 @@ export default async function Farmers() {
       {/* header */}
         <PageHeader heading='Farmers' href='/dashboard/farmers/new' linkTitle='Add Farmer'/>
         <div className="py-8">
-          <DataTable columns={columns} data={farmers}/>
+          <DataTable columns={columns} data={farmers} filterKeys={["email"]}/>
         </div>
     </div>
   )

@@ -9,8 +9,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import DeleteBtn from '../Actions/DeleteBtn'
+import EditBtn from '../Actions/EditBtn'
 
-export default function ActionColumn({title}) {
+export default function ActionColumn({row, title, endpoint, editEndpoint}) {
+  const isActive = row.isActive
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -20,8 +23,8 @@ export default function ActionColumn({title}) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>Edit {title}</DropdownMenuItem>
-          <DropdownMenuItem>Delete {title}</DropdownMenuItem>
+          <DropdownMenuItem><EditBtn title={title} editEndpoint={editEndpoint}/></DropdownMenuItem>
+          <DropdownMenuItem><DeleteBtn title={title} endpoint={endpoint}/></DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     )

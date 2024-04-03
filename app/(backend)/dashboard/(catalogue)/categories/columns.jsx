@@ -83,6 +83,13 @@ export const columns = [
   },
   {
     id: "actions",
-    cell: ({ row }) => (<ActionColumn row={row} title="Category"/>),
+    cell: ({ row }) => {
+      const category = row.original
+      return (<ActionColumn row={row} 
+        editEndpoint={`categories/update/${category.id}`}
+        endpoint={`categories/${category.id}`} 
+        title="Category"
+      />)
+    }
   },
 ] 
