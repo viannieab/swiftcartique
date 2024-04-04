@@ -5,6 +5,7 @@ import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import Link from 'next/link'
 import { BaggageClaim } from 'lucide-react'
+import Product from './Product'
 
 export default function CategoryCarousel({products}) {
     const responsive = {
@@ -33,10 +34,10 @@ export default function CategoryCarousel({products}) {
       ssr={true} // means to render carousel on server-side.
       infinite={true}
       autoPlay={true}
-      autoPlaySpeed={3000}
+      autoPlaySpeed={5000}
       keyBoardControl={true}
       customTransition="all .5"
-      transitionDuration={500}
+      transitionDuration={100}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
       dotListClass="custom-dot-list-style"
@@ -45,29 +46,7 @@ export default function CategoryCarousel({products}) {
       {
         products?.map((product, i)=>{
           return(
-            <div key={i}
-             href="#" className='rounded-lg bg-white dark:bg-slate-900 shadow overflow-hidden'>
-              <Link href={`/products/${product.slug}`}>
-                <Image 
-                  src={product.imageUrl}
-                  alt={product.title} 
-                  width={240} height={240} 
-                  className='w-full h-48 object-cover'
-                />              
-              </Link>
-              <div className="px-4">
-                <Link href={`/products/${product.slug}`}>
-                <h2 className='text-center text-slate-900 dark:text-slate-200 mt-2 font-semibold'>{product.title}</h2>
-                </Link>
-                <div className="flex items-center justify-between gap-2 pb-3 my-2 dark:text-slate-200">
-                  <p>UGX {product.salePrice}</p>
-                    <button className='flex items-center space-x-2 bg-lime-600 hover:bg-lime-700 py-2 px-4 rounded-md text-white'>
-                      <BaggageClaim/>
-                      <span>Add</span>
-                    </button>
-                </div>
-              </div>
-            </div>
+            <Product product={product} key={i}/>
           )
         })
       }

@@ -47,7 +47,7 @@ export default function MarketCarousel({markets}) {
             <Link key={i}
              href="#" className='rounded-lg'>
               <Image 
-                src={market.logoUrl}
+                src={market.imageUrl}
                 alt={market.title}
                 width={240} height={240} 
                 className='w-full rounded-full'

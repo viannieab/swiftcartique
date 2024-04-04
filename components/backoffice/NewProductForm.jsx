@@ -6,26 +6,29 @@ import SubmitButton from '@/components/FormInputs/SubmitButton'
 import TextAreaInput from '@/components/FormInputs/TextAreaInput'
 import TextInput from '@/components/FormInputs/TextInput'
 import ToggleInput from '@/components/FormInputs/ToggleInput'
-import FormHeader from '@/components/backoffice/FormHeader'
-import { makePostRequest } from '@/lib/apiRequest'
+import { makePostRequest, makePutRequest } from '@/lib/apiRequest'
 import { generateSlug } from '@/lib/generateSlug'
 import { generateUserCode } from '@/lib/generateUserCode'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function NewProductForm({categories, farmers}) {
-  const [imageUrl, setImageUrl] = useState('')
+export default function NewProductForm({categories, farmers, updateData={}}) {
+  const initialImageUrl = updateData?.imageUrl ?? ""
+  const initialTags = updateData?.tags ?? ""
+  const id = updateData?.id ?? ""
+  const [imageUrl, setImageUrl] = useState(initialImageUrl)
   const [loading, setLoading] = useState(false)
   const {register, watch, reset, handleSubmit, formState:{errors}} = useForm({
     defaultValues:{
       isActive:true,
-      isWholeSale:false
+      isWholeSale:false,
+      ...updateData
     }
   })
   const isActive = watch('isActive')
   //tags
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState(initialTags)
   const isWholeSale = watch('isWholeSale')
   const router = useRouter()
   function redirect(){
@@ -39,15 +42,17 @@ export default function NewProductForm({categories, farmers}) {
     data.tags = tags
     data.qty = 1
     data.productCode = productCode
-    makePostRequest(setLoading,'api/products', data, "Product", reset, redirect)
-    setImageUrl('')
-    setTags([])
+    if(id){
+      makePutRequest(setLoading,`api/products/${id}`, data, "Product", redirect)
+     } else {
+      makePostRequest(setLoading,'api/products', data, "Product", reset, redirect)
+      setImageUrl('')
+      setTags([])
+     }
   }
   return (
-    <div>
-        <FormHeader title='New Product'/>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3">
-          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <TextInput label="Product Title"
             name="title"
             register={register}
@@ -79,7 +84,7 @@ export default function NewProductForm({categories, farmers}) {
             errors={errors}
             className='w-full'
             />
-            <TextInput label="Price Stock"
+            <TextInput label="Stock Price"
             name="productStock"
             type='number'
             register={register}
@@ -154,9 +159,11 @@ export default function NewProductForm({categories, farmers}) {
             falseTitle='In Active'
             register={register}
             />
-          </div>
-          <SubmitButton isLoading={loading} buttonTitle='Add Product' loadingButtonTitle='Adding product please wait...'/>
-        </form>        
-    </div>
+        </div>
+          <SubmitButton isLoading={loading} 
+            buttonTitle={id?"Update Product": 'Create Product'}
+            loadingButtonTitle={`${id? "Updating":"Creating"} Product please wait...`}
+          />
+      </form>        
   )
 }

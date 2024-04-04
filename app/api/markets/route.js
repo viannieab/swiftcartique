@@ -7,7 +7,7 @@ export async function POST(request){
             categoryId,
             description,
             isActive,
-            logoUrl,
+            imageUrl,
             slug,
             title
         } = await request.json()
@@ -29,7 +29,7 @@ export async function POST(request){
                 categoryId,
                 description,
                 isActive,
-                logoUrl,
+                imageUrl,
                 slug,
                 title
             }

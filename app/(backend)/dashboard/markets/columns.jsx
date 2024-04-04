@@ -41,13 +41,13 @@ export const columns = [
     header: ({ column }) => (<SortableColumn column={column} title="Title"/>),
   },
   {
-    accessorKey: "logoUrl",
+    accessorKey: "imageUrl",
     header: "Market Logo",
     cell: ({ row }) => {
-      const logoUrl = row.getValue("logoUrl")
+      const imageUrl = row.getValue("imageUrl")
       return (
         <div className="shrink-0">
-          <Image src={logoUrl} 
+          <Image src={imageUrl} 
             alt="logo" 
             width={240} 
             height={240} 

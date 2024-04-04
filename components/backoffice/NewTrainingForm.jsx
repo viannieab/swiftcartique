@@ -6,7 +6,7 @@ import TextAreaInput from '@/components/FormInputs/TextAreaInput'
 import TextInput from '@/components/FormInputs/TextInput'
 import ToggleInput from '@/components/FormInputs/ToggleInput'
 import FormHeader from '@/components/backoffice/FormHeader'
-import { makePostRequest } from '@/lib/apiRequest'
+import { makePostRequest, makePutRequest } from '@/lib/apiRequest'
 import { generateSlug } from '@/lib/generateSlug'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -19,12 +19,16 @@ const QuillEditor = dynamic(() => import("@/components/FormInputs/QuillEditor"),
   ssr: false
 });
 
-export default function NewTrainingForm({ categories }) {
-  const [imageUrl, setImageUrl] = useState('');
+export default function NewTrainingForm({ categories, updateData = {} }) {
+  const initialContent = updateData?.content ?? ""
+  const initialImageUrl = updateData?.imageUrl ?? ""
+  const id = updateData?.id ?? ""
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [loading, setLoading] = useState(false);
   const { register, watch, reset, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
-      isActive: true
+      isActive: true,
+      ...updateData
     }
   });
   const isActive = watch('isActive');
@@ -35,7 +39,7 @@ export default function NewTrainingForm({ categories }) {
   }
 
   // Quill editor
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(initialContent);
 
   // Quill editor end
   async function onSubmit(data) {
@@ -44,14 +48,16 @@ export default function NewTrainingForm({ categories }) {
     data.imageUrl = imageUrl;
     data.content = content;
     console.log(data);
-    makePostRequest(setLoading, 'api/trainings', data, "Training", reset, redirect);
-    setImageUrl('');
-    setContent('');
+    if(id){
+      makePutRequest(setLoading,`api/trainings/${id}`, data, "Training", redirect)
+     } else {
+      makePostRequest(setLoading, 'api/trainings', data, "Training", reset, redirect)
+      setImageUrl('')
+      setContent('')
+     }
   }
 
   return (
-    <div>
-      <FormHeader title='New Training' />
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3">
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
@@ -91,8 +97,10 @@ export default function NewTrainingForm({ categories }) {
             register={register}
           />
         </div>
-        <SubmitButton isLoading={loading} buttonTitle='Add Training' loadingButtonTitle='Adding training please wait...' />
+        <SubmitButton isLoading={loading} 
+          buttonTitle={id?"Update Training": 'Create Training'}
+          loadingButtonTitle={`${id? "Updating":"Creating"} Training please wait...`}
+        />
       </form>
-    </div>
-  );
+  )
 }
