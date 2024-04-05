@@ -1,11 +1,30 @@
 import db from "@/lib/db"
-import { fa } from "@faker-js/faker"
-import { data } from "autoprefixer"
 import { NextResponse } from "next/server"
 
 export async function POST(request){
     try{
         const farmerData = await request.json()
+        const existingUser = await db.user.findMany({
+            where: {
+                id: farmerData.userId
+            }
+        })
+        if(!existingUser){
+            return NextResponse.json(
+                {
+                    data: null,
+                    message: `No user found`
+                }, {status: 404}
+            )
+        }
+        const updatedUser = await db.user.update({
+            where: {
+                id: farmerData.userId
+            },
+            data: {
+                emailVerified: true
+            }
+        })
         const newFarmerProfile = await db.farmerProfile.create({
             data: {
                 code:farmerData.code,

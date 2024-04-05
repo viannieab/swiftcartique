@@ -26,15 +26,37 @@ export async function POST(request){
     }
     //Encrypt the password =>bcrypt
     const hashedPassword = await bcrypt.hash(password, 10)
+    //Generate Token
+    // Generate a random UUID (version 4)
+    const rawToken = uuidv4();
+    console.log(rawToken);
+    // Encode the token using Base64 URL-safe format
+    const token = base64url.encode(rawToken);
+    // Create a User in the DB
     const newUser = await db.user.create({
         data: {
-            name, email, password:hashedPassword, role
+            name, 
+            email, 
+            password:hashedPassword, 
+            role,
+            verificationToken: token,
         }
     })
     console.log(newUser)
     //Send the email if user role == Farmer
     if(role === "Farmer"){
-
+        //Send an Email with the Token on the link as a search param
+        const userId = newUser.id
+        const linkText = "Verify Account"
+        const redirectUrl = `onboarding/${userId}?token=${token}`
+        const sendMail = await resend.emails.send({
+            from: "SwiftCartique <info@jazzafricaadventures.com>",
+            to: email,
+            subject: "Account Verification - SwiftCartique",
+            react: EmailTemplate({ name, redirectUrl, linkText }),
+        });
+        console.log(sendMail);
+        //Upon Click redirect them to the login
     }
     return NextResponse.json({
         data: newUser,

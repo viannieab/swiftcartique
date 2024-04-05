@@ -146,8 +146,6 @@ model User{
 model UserProfile {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @unique @db.ObjectId
-  // Add other fields for user onboarding information
-  // For example:
   dateOfBirth DateTime?
   address    String?
   

@@ -179,3 +179,15 @@ import {
     paddingRight: "8px",
     width: "100%",
   };
+  const footerText = {
+    fontSize: "12px",
+    color: "#b7b7b7",
+    lineHeight: "15px",
+    textAlign: "left",
+    marginBottom: "50px",
+  };
+  
+  const footerLink = {
+    color: "#b7b7b7",
+    textDecoration: "underline",
+  };
