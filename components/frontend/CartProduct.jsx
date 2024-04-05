@@ -3,12 +3,14 @@ import { decrementQty, incrementQty, removeFromCart } from '@/redux/slices/cartS
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
+import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 
 export default function CartProduct({cartItem}) {
     const dispatch = useDispatch()
     function handleCartItemDelete(cartId){
         dispatch(removeFromCart(cartId))
+        toast.success("Item removed sucessfully")
     }
     function handleQtyIncrement(cartId){
         dispatch(incrementQty(cartId))

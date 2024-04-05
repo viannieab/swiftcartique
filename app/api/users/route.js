@@ -1,9 +1,14 @@
 import db from "@/lib/db"
 import { NextResponse } from "next/server"
 import bcrypt from 'bcrypt'
+import { v4 as uuidv4 } from 'uuid'
+import base64url from 'base64url'
+import {Resend} from "resend"
+import {EmailTemplate} from "@/components/EmailTemplate"
 
 export async function POST(request){
    try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     //extract the credentials
     const {name, email, password, role} = await request.json()
 
@@ -27,6 +32,10 @@ export async function POST(request){
         }
     })
     console.log(newUser)
+    //Send the email if user role == Farmer
+    if(role === "Farmer"){
+
+    }
     return NextResponse.json({
         data: newUser,
         message: "User created successfully",
