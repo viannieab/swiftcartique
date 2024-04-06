@@ -30,7 +30,7 @@ model Banner{
   updatedAt DateTime @updatedAt
 }
 model Category{
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId 
   title String
   slug String @unique
   imageUrl String?
@@ -118,7 +118,7 @@ model Training{
   description String?
   isActive Boolean
   content String?
-  category Category @relation(fields:[categoryId], references:[id])
+  category Category @relation(fields:[categoryId], references:[id], onDelete: Cascade)
   categoryId String @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

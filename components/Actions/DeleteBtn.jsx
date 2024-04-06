@@ -13,7 +13,8 @@ export default function DeleteBtn({id, title, endpoint }) {
 
   async function handleDelete() {
     setLoading(true);
-    Swal.fire({
+
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -21,22 +22,29 @@ export default function DeleteBtn({id, title, endpoint }) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const res = await fetch(`${baseUrl}/api/${endpoint}?id=${id}`, {
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        const res = await fetch(`${baseUrl}/api/${endpoint}`, {
           method: "DELETE",
         });
-        console.log(res);
+
         if (res.ok) {
-          router.refresh();
-          setLoading(false);
           toast.success(`${title} Deleted Successfully`);
+          router.refresh();
+        } else {
+          toast.error(`Failed to delete ${title}`);
         }
-      } else {
+
+      } catch (error) {
+        console.error(`Error deleting ${title}:`, error);
+        toast.error(`Failed to delete ${title}`);
         setLoading(false);
-      }
-    });
-  }
+  }}}
+  
+  
   return (
     <>
       {loading ? (

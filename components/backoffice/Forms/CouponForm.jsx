@@ -19,6 +19,12 @@ export default function CouponForm({updateData={}}) {
   updateData.expiryDate = expiryDateNormal
   const [loading, setLoading] = useState(false) 
   const [couponCode, setCouponCode] = useState()
+
+  
+  const updatedDate = convertIsoDateToNormal(updateData.expiryDate)
+  console.log(updatedDate)
+  
+
   const {register, watch, reset, handleSubmit, formState:{errors}} = useForm({
     defaultValues:{
       isActive:true,
