@@ -33,6 +33,7 @@ export default function OnboardingFarmer({user}) {
     data.userId = user.id
     data.products = products
     data.profileImageUrl = profileImageUrl
+    console.log(data)
     makePostRequest(setLoading,'api/farmers', data, "Farmer Profile", reset, redirect)
   }
   return (

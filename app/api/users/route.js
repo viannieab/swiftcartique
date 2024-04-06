@@ -18,6 +18,7 @@ export async function POST(request){
             email
         }
     })
+    console.log(email)
     if(existingUser) {
         return NextResponse.json({
            data: null,
@@ -45,12 +46,13 @@ export async function POST(request){
     console.log(newUser)
     //Send the email if user role == Farmer
     if(role === "Farmer"){
+        console.log("first")
         //Send an Email with the Token on the link as a search param
         const userId = newUser.id
         const linkText = "Verify Account"
         const redirectUrl = `onboarding/${userId}?token=${token}`
         const sendMail = await resend.emails.send({
-            from: "SwiftCartique <info@jazzafricaadventures.com>",
+            from: "SwiftCartique <info@flakolimited.com>",
             to: email,
             subject: "Account Verification - SwiftCartique",
             react: EmailTemplate({ name, redirectUrl, linkText }),

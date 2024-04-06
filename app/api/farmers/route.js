@@ -4,6 +4,9 @@ import { NextResponse } from "next/server"
 export async function POST(request){
     try{
         const farmerData = await request.json()
+      
+        
+        console.log(farmerData)
         const existingUser = await db.user.findMany({
             where: {
                 id: farmerData.userId
@@ -32,7 +35,7 @@ export async function POST(request){
                 contactPersonPhone: farmerData.contactPersonPhone,
                 profileImageUrl: farmerData.profileImageUrl,
                 email: farmerData.email,
-                title: farmerData.title,
+                title: farmerData.name,
                 notes: farmerData.notes,
                 phone: farmerData.phone,
                 physicalAddress: farmerData.physicalAddress,
