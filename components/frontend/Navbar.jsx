@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import SearchForm from './SearchForm'
 import Link from 'next/link'
@@ -7,8 +8,14 @@ import { HelpCircle, ShoppingCart, UserRound } from 'lucide-react'
 import ThemeSwitcherBtn from '../ThemeSwitcherBtn'
 import HelpModal from './HelpModal'
 import CartCount from './CartCount'
+import { useSession } from 'next-auth/react'
+import UserAvator from '../backoffice/UserAvator'
 
 export default function Navbar() {
+  const {data:session, status} = useSession()
+  if(status === "loading"){
+    return <p>Loading...</p>
+  }
   return (
     <div className="bg-white dark:bg-slate-800">
        <div className="flex items-center justify-between py-3 max-w-6xl mx-auto px-8 gap-8">
@@ -21,10 +28,16 @@ export default function Navbar() {
           <SearchForm />
         </div>
         <div className="flex gap-4">
-          <Link href='/login' className="flex items-center space-x-1 text-green-950 dark:text-slate-100">
+          {
+            status === "unauthenticated" ? (
+              <Link href='/login' className="flex items-center space-x-1 text-green-950 dark:text-slate-100">
                 <UserRound/>
                 <span>Login</span>
-          </Link>
+              </Link>
+            ):(
+              <UserAvator user={session?.user}/>
+            )
+          }
           <HelpModal/>
           <CartCount/>
         </div>

@@ -51,11 +51,13 @@ export async function POST(request){
         const userId = newUser.id
         const linkText = "Verify Account"
         const redirectUrl = `onboarding/${userId}?token=${token}`
+        const description = "Thank you, for Creating an Account with Us. We request you to click on the link Below in order to Complete your Onboarding Process. Thankyou"
+        const subject = "Account Verification - SwiftCartique"
         const sendMail = await resend.emails.send({
             from: "SwiftCartique <info@flakolimited.com>",
             to: email,
-            subject: "Account Verification - SwiftCartique",
-            react: EmailTemplate({ name, redirectUrl, linkText }),
+            subject: subject,
+            react: EmailTemplate({ name, redirectUrl, linkText, description, subject }),
         });
         console.log(sendMail);
         //Upon Click redirect them to the login

@@ -7,6 +7,7 @@ import ToggleInput from '@/components/FormInputs/ToggleInput'
 import FormHeader from '@/components/backoffice/FormHeader'
 import { makePostRequest, makePutRequest } from '@/lib/apiRequest'
 import { convertIsoDateToNormal } from '@/lib/convertIsoDateToNormal'
+import { convertToIsoDate } from '@/lib/convertToIsoDate'
 import { generateCouponCode } from '@/lib/generateCouponCode'
 import { generateSlug } from '@/lib/generateSlug'
 import { useRouter } from 'next/navigation'
@@ -14,21 +15,26 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function CouponForm({updateData={}}) {
+  // Extract expiry date and ID from updateData
+  const { expiryDate, id } = updateData;
+
+  // Convert expiry date to ISO format
+  const expiryDateIso = expiryDate ? convertToIsoDate(expiryDate) : '';
   const expiryDateNormal = convertIsoDateToNormal(updateData.expiryDate)  
-  const id = updateData?.id ?? ""
+  // const id = updateData?.id ?? ""
   updateData.expiryDate = expiryDateNormal
   const [loading, setLoading] = useState(false) 
   const [couponCode, setCouponCode] = useState()
 
-  
   const updatedDate = convertIsoDateToNormal(updateData.expiryDate)
   console.log(updatedDate)
   
-
   const {register, watch, reset, handleSubmit, formState:{errors}} = useForm({
     defaultValues:{
       isActive:true,
-      ...updateData
+      ...updateData,
+      expiryDate: expiryDateIso,
+      expiryDate: convertIsoDateToNormal(updateData.expiryDate)
     }
   })
   const isActive = watch('isActive')
@@ -39,6 +45,7 @@ export default function CouponForm({updateData={}}) {
   async function onSubmit(data){
     const couponCode = generateCouponCode(data.title, data.expiryDate)
     data.couponCode = couponCode
+    data.expiryDate = expiryDate
     if(id){
         makePutRequest(setLoading,`api/coupons/${id}`, data, "Coupon", redirect)
        } else {

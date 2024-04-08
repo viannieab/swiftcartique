@@ -1,3 +1,4 @@
+"use client"
 import { AlignJustify, Bell, LayoutDashboard, LogOut, Sun, User, UserRoundCog, X } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
@@ -11,9 +12,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import ThemeSwitcherBtn from '../ThemeSwitcherBtn'
 import Link from 'next/link'
-
+import UserAvator from './UserAvator'
+import { useSession } from 'next-auth/react'
 
 export default function Navbar({setShowSideBar, showSideBar}) {
+  const {data: session, status} = useSession()
+  if(status === "loading"){
+    return <p>Loading...</p>
+  }
   return (
     <div className='flex items-center justify-between bg-white dark:bg-slate-900 text-slate-50 h-15 py-4 fixed top-0 w-full px-8 z-50 sm:pr-[20rem]'>
         {/* icon */}
@@ -82,35 +88,10 @@ export default function Navbar({setShowSideBar, showSideBar}) {
                   <DropdownMenuSeparator />
                 </DropdownMenuContent>
               </DropdownMenu>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <button>
-                    <Image src='/profile.png' alt='User profile' width={200} height={200} className='w-8 h-8 rounded-full'/>
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className='px-4 py-2 pr-8'>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <button className='flex items-center space-x-2'>
-                      <LayoutDashboard className='mr-2 h-4 w-4'/>
-                      <span>Dashboard</span>
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <button className='flex items-center space-x-2'>
-                      <UserRoundCog className='mr-2 h-4 w-4'/>
-                      <span>Edit Profile</span>
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <button className='flex items-center space-x-2'>
-                      <LogOut className='mr-2 h-4 w-4'/>
-                      <span>Logout</span>
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {
+                status === "authenticated" &&
+                <UserAvator user={session?.user}/>
+              }
             </div>
     </div>
   )
