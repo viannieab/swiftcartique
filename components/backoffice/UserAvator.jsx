@@ -34,7 +34,7 @@ export default function UserAvator({user={}}) {
                     height={200} 
                     className='w-8 h-8 rounded-full'
                 /> : (
-                      <div className="w-10 h-10 p-4 flex items-center justify-center rounded-full bg-slate-950 shadow-md">
+                      <div className="w-10 h-10 p-4 flex items-center justify-center rounded-full bg-slate-200 text-slate-900 dark:text-slate-50 dark:bg-slate-950 shadow-md">
                         {initials}
                       </div> 
                      )}
