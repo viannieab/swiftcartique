@@ -30,8 +30,8 @@ export default function PaymentMethodForm() {
       <h2 className='text-xl font-semibold mb-4 dark:text-lime-400'>Payment Methods</h2>
          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div className="col-span-full">
-              <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Which payment method do you prefer?</h3>
-              <ul class="grid w-full gap-6 md:grid-cols-2">
+              <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white">Which payment method do you prefer?</h3>
+              <ul className="grid w-full gap-6 md:grid-cols-2">
                 <li>
                     <input 
                       // {...register("paymentMethod", {required:true})}
@@ -39,11 +39,11 @@ export default function PaymentMethodForm() {
                       id="hosting-small" 
                       name="hosting" 
                       value="Cash on Delivery" 
-                      class="hidden peer" 
+                      className="hidden peer" 
                       required 
                       onChange={(e)=>setPaymentMethod(e.target.value)}
                     />
-                    <label for="hosting-small" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                    <label for="hosting-small" className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
                         <div className="flex gap-2 items-center">
                           <HandCoins className='w-8 h-8 ms-3 flex-shrink-0'/>
                           <div className="">
@@ -60,10 +60,10 @@ export default function PaymentMethodForm() {
                       id="hosting-big" 
                       name="hosting" 
                       value="Credit Card" 
-                      class="hidden peer"
+                      className="hidden peer"
                       onChange={(e)=>setPaymentMethod(e.target.value)}
                     />
-                    <label for="hosting-big" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <label for="hosting-big" className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <div className="flex gap-2 items-center">
                           <CreditCard className='w-8 h-8 ms-3 flex-shrink-0'/>
                           <div className="">

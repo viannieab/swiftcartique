@@ -25,6 +25,7 @@ export default function OrderSummary() {
       orderItems:cartItems,
       checkoutFormData
     }
+    console.log(data)
     try {
       setLoading(true)
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -35,9 +36,9 @@ export default function OrderSummary() {
         },
         body: JSON.stringify(data)
       })
+      const responseData = await response.json()
       if(response.ok){
         setLoading(false)
-        const responseData = await response.json()
         toast.success("Order Created Successfully")
         router.push("/order-confirmation")
       } else{
