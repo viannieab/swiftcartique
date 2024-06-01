@@ -40,7 +40,7 @@ export default function OrderSummary() {
       if(response.ok){
         setLoading(false)
         toast.success("Order Created Successfully")
-        router.push("/order-confirmation")
+        router.push(`/order-confirmation/${responseData.id}`)
       } else{
           setLoading(false)
           toast.error("Something went wrong, Please try again!")

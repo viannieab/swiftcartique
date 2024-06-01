@@ -158,6 +158,8 @@ model OrderItem {
   productId   String    @db.ObjectId
   quantity    Int
   price       Float
+  imageUrl    String?
+  title       String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   order       Order     @relation(fields: [orderId], references: [id])
@@ -183,12 +185,13 @@ model Order {
   city           String
   country        String
   zipCode        String
-  shippingCost   String
+  orderNumber    String?
+  shippingCost   Int
   paymentMethod  String
   orderStatus    OrderStatus @default(PENDING) 
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
-  userId         String       @db.ObjectId
+  userId         String       @db.ObjectId  
   user           User        @relation(fields: [userId], references: [id])
   orderItems     OrderItem[]
 }

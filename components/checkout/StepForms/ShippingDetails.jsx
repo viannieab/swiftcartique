@@ -59,11 +59,11 @@ export default function ShippingDetails() {
               <ul className="grid w-full gap-6 md:grid-cols-2">
                 <li>
                     <input 
-                      // {...register("shippingCost", {required:true})}
+                      {...register("shippingCost", {required:true})}
                       type="radio" 
                       id="hosting-small" 
                       name="hosting" 
-                      value="$10" 
+                      value="5000" 
                       className="hidden peer" 
                       required 
                       onChange={(e)=>setShippingCost(e.target.value)}
@@ -73,7 +73,7 @@ export default function ShippingDetails() {
                           <Truck className='w-8 h-8 ms-3 flex-shrink-0'/>
                           <div className="">
                             <p>UPS</p>
-                            <p>Delivery Cost: $10</p>
+                            <p>Delivery Cost: UGX 5000</p>
                           </div>
                         </div>
                         <Circle className='w-5 h-5 ms-3 flex-shrink-0'/>
@@ -81,11 +81,11 @@ export default function ShippingDetails() {
                 </li>
                 <li>
                     <input 
-                      // {...register("shippingCost", {required:true})}
+                      {...register("shippingCost", {required:true})}
                       type="radio" 
                       id="hosting-big" 
                       name="hosting" 
-                      value="$20" 
+                      value="8000" 
                       className="hidden peer"
                       onChange={(e)=>setShippingCost(e.target.value)}
                     />
@@ -94,7 +94,7 @@ export default function ShippingDetails() {
                           <Truck className='w-8 h-8 ms-3 flex-shrink-0'/>
                           <div className="">
                             <p>UPS</p>
-                            <p>Delivery Cost: $20</p>
+                            <p>Delivery Cost: UGX 8000</p>
                           </div>
                         </div>
                         <Circle className='w-5 h-5 ms-3 flex-shrink-0'/>

@@ -20,7 +20,7 @@ export default function Breadcrumb() {
             <li aria-current="page">
             <div className="flex items-center">
                 <ChevronRight className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"/>
-                <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Flowbite</span>
+                <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Cart</span>
             </div>
             </li>
         </ol>

@@ -45,6 +45,11 @@ export default function Sidebar({showSideBar, setShowSideBar}) {
       title: 'Orders',
       icon: HandPlatter,
       href: '/dashboard/orders',
+    }, 
+    {
+      title: 'Sales',
+      icon: HandPlatter,
+      href: '/dashboard/sales',
     },
     {
       title: 'Our Staff',
@@ -112,6 +117,11 @@ export default function Sidebar({showSideBar, setShowSideBar}) {
         href: '/dashboard/orders',
       },
       {
+        title: 'Sales',
+        icon: HandPlatter,
+        href: '/dashboard/sales',
+      },
+      {
         title: 'Swift Community',
         icon: Building2,
         href: '/dashboard/community',
@@ -136,7 +146,7 @@ export default function Sidebar({showSideBar, setShowSideBar}) {
   if(role === "User") {
     sideBarLinks = [
       {
-        title: 'Orders',
+        title: 'My Orders',
         icon: HandPlatter,
         href: '/dashboard/orders',
       },
