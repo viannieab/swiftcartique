@@ -26,7 +26,7 @@ export default function OrderCard({order}){
 
                             <div>
                                 <p className="text-sm font-medium text-gray-500">Total Amount</p>
-                                <p className="text-sm font-bold text-gray-900 mt-0.5">{subTotal}</p>
+                                <p className="text-sm font-bold text-gray-900 mt-0.5">UGX {subTotal}</p>
                             </div>
 
                             <div>
