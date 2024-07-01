@@ -23,7 +23,7 @@ export default function HeroCarousel({banners}) {
         banners.map((banner, i)=>{
           return(
             <Link key={i} href={banner.link} className="">
-              <Image width={712} height={384} className="w-full" src={banner.imageUrl} alt={banner.title}/>
+              <Image width={712} height={384} className="w-full h-full object-cover" src={banner.imageUrl} alt={banner.title}/>
             </Link>
           )
         })
