@@ -1,12 +1,8 @@
 "use client"
 import Breadcrumb from '@/components/frontend/Breadcrumb'
 import CartItems from '@/components/frontend/CartItems'
-import CartProduct from '@/components/frontend/CartProduct'
 import CartSubtotal from '@/components/frontend/CartSubtotal'
 import EmptyCart from '@/components/frontend/EmptyCart'
-import { Minus, Plus, Trash2 } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 import { useSelector } from 'react-redux'
 

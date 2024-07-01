@@ -83,6 +83,7 @@ model Product {
   user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId         String @db.ObjectId
   orderItems     OrderItem[]
+  sales     Sale[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
@@ -130,19 +131,20 @@ enum UserRole{
   Moderator
 }
 model User{
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String? @unique
-  password       String
-  emailVerified  Boolean @default(false)
-  products       Product[]
-  role           UserRole @default(User)
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
+  email             String? @unique
+  password          String
+  emailVerified     Boolean @default(false)
+  products          Product[]
+  role              UserRole @default(User)
   verificationToken String?
-  FarmerProfile  FarmerProfile?
-  profile        UserProfile?
-  Orders          Order[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  FarmerProfile     FarmerProfile?
+  profile           UserProfile?
+  Orders            Order[]
+  sales             Sale[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 model UserProfile {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -156,7 +158,8 @@ model OrderItem {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   orderId     String    @db.ObjectId
   productId   String    @db.ObjectId
-  quantity    Int
+  farmerId    String?   @db.ObjectId
+  quantity    Int?
   price       Float
   imageUrl    String?
   title       String?
@@ -194,4 +197,17 @@ model Order {
   userId         String       @db.ObjectId  
   user           User        @relation(fields: [userId], references: [id])
   orderItems     OrderItem[]
+  sales          Sale[]
+}
+model Sale {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String   @db.ObjectId
+  productId String   @db.ObjectId
+  vendorId  String   @db.ObjectId
+  total     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  vendor    User   @relation(fields: [vendorId], references: [id])
 }

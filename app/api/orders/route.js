@@ -19,7 +19,7 @@ export async function POST(request) {
             checkoutFormData,
             orderItems
         } = await request.json()
-
+        console.log(orderItems)
         const {
             city,
             country,
@@ -71,6 +71,7 @@ export async function POST(request) {
         const newOrderItems = await db.orderItem.createMany({
             data: orderItems.map((item) => ({
                 productId: item.id,
+                farmerId: item.id,
                 quantity: parseInt(item.qty),
                 price: parseFloat(item.salePrice),
                 orderId: newOrder.id,
@@ -98,11 +99,12 @@ export async function GET(request){
                 createdAt: "desc"
             },
             include: {
-                orderItems:true
+                orderItems : true
             }
         })
         return NextResponse.json(orders)
     } catch (error) {
+        console.log(error)
         return NextResponse.json({
             message: 'Failed to fetch orders',
             error
