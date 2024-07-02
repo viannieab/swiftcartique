@@ -18,16 +18,16 @@ export default function Navbar() {
   }
   return (
     <div className="bg-white dark:bg-slate-800">
-       <div className="flex items-center justify-between py-3 max-w-6xl mx-auto px-8 gap-8">
+       <div className="flex items-center justify-between py-3 max-w-6xl mx-auto px-4 sm:px-8 gap-4 sm:gap-8">
         {/* Logo */}
         <Link className="" href="/">
-          <Image src={logo} alt="SwiftCartique logo" className="w-24" />
+          <Image src={logo} alt="SwiftCartique logo" className="w-24 sm:w-24" />
         </Link>
         {/* SEARCH */}
-        <div className="flex-grow">
+        <div className="flex-grow hidden sm:block">
           <SearchForm />
         </div>
-        <div className="flex gap-4">
+        <div className="flex items-center gap-4">
           {
             status === "unauthenticated" ? (
               <Link href='/login' className="flex items-center space-x-1 text-green-950 dark:text-slate-100">
@@ -41,7 +41,11 @@ export default function Navbar() {
           <HelpModal/>
           <CartCount/>
         </div>
-        <ThemeSwitcherBtn/>
+        <ThemeSwitcherBtn className="hidden sm:block"/>
+       </div>
+       {/* mobile search */}
+       <div className="block sm:hidden px-4 py-2">
+        <SearchForm/>
        </div>
     </div>
   )

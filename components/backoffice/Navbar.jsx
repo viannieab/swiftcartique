@@ -92,7 +92,7 @@ export default function Navbar({setShowSideBar, showSideBar}) {
                 status === "authenticated" &&
                 <UserAvator user={session?.user}/>
               }
-            </div>
+        </div>
     </div>
   )
 }
