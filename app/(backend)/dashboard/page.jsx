@@ -1,13 +1,15 @@
-import CustomDataTable from '@/components/backoffice/CustomDataTable'
 import DashboardCharts from '@/components/backoffice/DashboardCharts'
 import FarmerDashboard from '@/components/backoffice/FarmerDashboard'
 import Heading from '@/components/backoffice/Heading'
 import LargeCards from '@/components/backoffice/LargeCards'
 import SmallCards from '@/components/backoffice/SmallCards'
 import UserDashboard from '@/components/backoffice/UserDashboard'
+import DataTable from '@/components/data-table-components/DataTable'
 import { authOptions } from '@/lib/authOptions'
+import { getData } from '@/lib/getData'
 import { getServerSession } from 'next-auth'
-import React from 'react'
+import { columns } from './orders/columns'
+import PageHeader from '@/components/backoffice/PageHeader'
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions)
@@ -18,6 +20,7 @@ export default async function Dashboard() {
   if(role === "Farmer"){
     return <FarmerDashboard/>
   }
+  const orders = await getData("orders")
   return (
     <div>
         <Heading title="Dashboard Overview"/>
@@ -28,7 +31,10 @@ export default async function Dashboard() {
         {/* charts */}
         <DashboardCharts/>
         {/* recent orders */}
-        <CustomDataTable/>
+        <div className="py-8">
+        <Heading title="Recent Orders"/>
+          <DataTable columns={columns} data={orders} filterKeys={["email"]}/>
+        </div>        
     </div>
   )
 }
