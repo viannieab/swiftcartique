@@ -60,7 +60,7 @@ export default function DataTable({
   })
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4  text-slate-600 dark:text-slate-100">
       <DataTableToolbar table={table} filterKeys={filterKeys}/>
       <div className="rounded-md border">
         <Table>

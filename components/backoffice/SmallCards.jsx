@@ -4,7 +4,7 @@ import { CheckCheck, Loader2, RefreshCcw, ShoppingCart, Truck } from 'lucide-rea
 
 export default function SmallCards() {
     const orderStatus = [{
-        title: "Total Order",
+        title: "Total Orders",
         numbers: 2760,
         iconColor: "bg-green-600",
         icon:ShoppingCart, 
